@@ -1,5 +1,5 @@
 Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.o: \
- C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c \
+ C:/git/LCD-Example/h745LCDLegacy/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c \
  ../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h \
  ../../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h745xx.h \
  ../../Drivers/CMSIS/Include/core_cm7.h \

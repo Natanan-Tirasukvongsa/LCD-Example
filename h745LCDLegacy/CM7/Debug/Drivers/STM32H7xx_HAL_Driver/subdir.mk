@@ -5,33 +5,33 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c \
-C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c 
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c \
+C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c 
 
 C_DEPS += \
 ./Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.d \
@@ -93,58 +93,58 @@ OBJS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_cortex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_cortex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_dma_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_eth_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_exti.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_exti.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_flash_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_hsem.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_hsem.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_i2c_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_mdma.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_mdma.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pwr_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_spi.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_spi.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_spi_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_spi_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_tim_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_uart_ex.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
-Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_usb.o: C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
+Drivers/STM32H7xx_HAL_Driver/stm32h7xx_ll_usb.o: C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c Drivers/STM32H7xx_HAL_Driver/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DCORE_CM7 -DUSE_HAL_DRIVER -DSTM32H745xx -c -I../Core/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc -I../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "$@"
 

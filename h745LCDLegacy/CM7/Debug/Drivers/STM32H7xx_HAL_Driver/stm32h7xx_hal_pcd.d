@@ -1,5 +1,5 @@
 Drivers/STM32H7xx_HAL_Driver/stm32h7xx_hal_pcd.o: \
- C:/Users/AlphaP/Documents/stm32workplace/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c \
+ C:/git/LCD-Example/h745LCDLegacy/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h \
  ../Core/Inc/stm32h7xx_hal_conf.h \
  ../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h \
