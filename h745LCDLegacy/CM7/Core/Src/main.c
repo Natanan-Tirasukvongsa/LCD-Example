@@ -168,6 +168,7 @@ int main(void)
   MX_USB_OTG_FS_PCD_Init();
   /* USER CODE BEGIN 2 */
 
+  	//กำหนดขา pin
 	ST7735.hspi = &hspi1;
 	ST7735.CSPort = GPIOD;
 	ST7735.CSPin = GPIO_PIN_14;
@@ -175,8 +176,11 @@ int main(void)
 	ST7735.DCPin = GPIO_PIN_15;
 	ST7735.RstPort = GPIOG;
 	ST7735.RstPin = GPIO_PIN_9;
+	//เริ่มการเขียน sequence data
 	LCD_init(&ST7735);
+	//flush ข้อมูล dma
 	LCD_flush(&ST7735);
+	//รับข้อมูลภาพด้วย uart
 	UART2.huart = &huart3;
 	UART2.RxLen =255;
 	UART2.TxLen =255;

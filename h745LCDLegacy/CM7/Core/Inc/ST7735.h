@@ -8,6 +8,9 @@
 #ifndef INC_ST7735_H_
 #define INC_ST7735_H_
 #include "stm32h7xx_hal.h"
+//ประกาศตัวแปรต่าง ๆ
+
+//เก็บข้อมูล port pin ต่าง ๆ
 typedef struct
 {
 	SPI_HandleTypeDef *hspi;
@@ -17,6 +20,10 @@ typedef struct
 	uint32_t  DCPin;
 
 }LCDHandle;
+//ขนาดจอ 128 * 128*RGB
+//สามารถส่งข้อมูลให้จอได้ทันที
+//ข้อเสียคือ ถ้าไม่มีการแก้ไขภาพในจอ ภาพซ้ำ ๆ เดิม ๆ จะถูกเขียนซ้ำไปซ้ำมา
+//ทำให้เปลือง bandwid ของจอ
 #define LCD_BUFFER_SIZE 3*128*128
 extern uint8_t Framememory[LCD_BUFFER_SIZE];
 
