@@ -261,7 +261,8 @@ int main(void)
 		PIR[0] = HAL_GPIO_ReadPin(PIR_GPIO_Port, PIR_Pin); //save PIR current state
 
 		//if (HAL_GPIO_ReadPin(PIR_GPIO_Port, PIR_Pin) == GPIO_PIN_SET)
-		if (PIR[0] == GPIO_PIN_SET && PIR[1] == GPIO_PIN_RESET && RTC_ON == 0)
+		if (PIR[0] == GPIO_PIN_SET && PIR[1] == GPIO_PIN_RESET )
+		//if (PIR[0] == GPIO_PIN_SET && PIR[1] == GPIO_PIN_SET )
 		{
 			LCD_flush(&ST7735);
 			//rtc work
@@ -459,32 +460,32 @@ int main(void)
 				}
 			}
 
-			if (sTime.Minutes < 0x01)
-			{
+//			if (sTime.Minutes < 0x01)
+//			{
 				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,PWM);
 	//			HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
-			}
-			else
-			{
-				RTC_ON = 0;
-				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
-				LCD_flush(&ST7735);
-				int a,b,c = 0;
-				//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-				//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-				//add next array 384 (128*3)
-				for(a = 23100; a <= 39996; a = a+384 )
-				{
-					//lenght*rgb = 45*3 = 135 (0-134)
-					for(b=0;b<135;b++)
-					{
-						Framememory[a+b] = fan_off[b+c];
-					}
-					//offset 135
-					c = c +135;
-				}
-
-			}
+			//}
+//			else
+//			{
+//				RTC_ON = 0;
+//				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
+//				LCD_flush(&ST7735);
+//				int a,b,c = 0;
+//				//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
+//				//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
+//				//add next array 384 (128*3)
+//				for(a = 23100; a <= 39996; a = a+384 )
+//				{
+//					//lenght*rgb = 45*3 = 135 (0-134)
+//					for(b=0;b<135;b++)
+//					{
+//						Framememory[a+b] = fan_off[b+c];
+//					}
+//					//offset 135
+//					c = c +135;
+//				}
+//
+//			}
 		}
 
 		//reset pwm (ใส่ 0 ไปเลยโดยที่ไม่เปลี่ยนค่า pwm = 0 )
@@ -1010,6 +1011,26 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+	RTC_ON = 0;
+	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
+	LCD_flush(&ST7735);
+	int a,b,c = 0;
+	//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
+	//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
+	//add next array 384 (128*3)
+	for(a = 23100; a <= 39996; a = a+384 )
+	{
+		//lenght*rgb = 45*3 = 135 (0-134)
+		for(b=0;b<135;b++)
+		{
+			Framememory[a+b] = fan_off[b+c];
+		}
+		//offset 135
+		c = c +135;
+	}
+}
 
 /* USER CODE END 4 */
 
