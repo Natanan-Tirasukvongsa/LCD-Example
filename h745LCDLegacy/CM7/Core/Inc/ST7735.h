@@ -26,9 +26,21 @@ typedef struct
 //ทำให้เปลือง bandwid ของจอ
 #define LCD_BUFFER_SIZE 3*128*128
 extern uint8_t Framememory[LCD_BUFFER_SIZE];
+extern uint8_t owl[LCD_BUFFER_SIZE];
+extern uint8_t man[LCD_BUFFER_SIZE];
+extern uint8_t dog[LCD_BUFFER_SIZE];
+extern uint8_t N1[3072];
+extern uint8_t fan[LCD_BUFFER_SIZE];
+extern uint8_t fan_off[6075];
+extern uint8_t fan_on[6075];
+extern uint8_t speed1[3072];
+extern uint8_t speed2[3072];
+extern uint8_t speed3[3072];
 
 void LCD_init(LCDHandle *lcd);
 void LCD_flush(LCDHandle *lcd);
 uint8_t* LCDBufferAddr();
+
+void LCD_show(uint8_t RTC_ON, uint8_t fan_mode);
 
 #endif /* INC_ST7735_H_ */
