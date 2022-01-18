@@ -2,3 +2,6 @@ ST7735.c:166:6:LCD_init	16	static
 ST7735.c:220:6:LCD_flush	16	static
 ST7735.c:227:10:LCDBufferAddr	4	static
 ST7735.c:975:6:LCD_show	80	static
+ST7735.c:1293:6:LCD_timer	80	static
+ST7735.c:1407:6:LCD_fan	40	static
+ST7735.c:1454:6:LCD_speed	56	static

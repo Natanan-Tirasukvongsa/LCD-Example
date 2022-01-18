@@ -87,21 +87,26 @@ DMA_HandleTypeDef hdma_usart3_tx;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
+//share information
+typedef struct
+{
+	uint32_t PWM;
+	uint8_t fan_mode;
+	uint8_t mode_change;
+	uint8_t RTC_ON;
+	uint8_t RTC_change;
+	uint8_t finish;
+	uint8_t led1;
+	uint8_t led2;
+	uint8_t led3;
+}SharedType;
+
+SharedType *shareMemory = (SharedType*)(0x38000000);
+
 LCDHandle ST7735 = { 0 };
 UARTStucrture UART2 ={ 0 };
 
-GPIO_PinState button1[2] = {0}; //save state button S1
-GPIO_PinState button2[2] = {0}; //save state button S2
-GPIO_PinState button3[2] = {0}; //save state button S3
-
-uint32_t PWM = 2500; //save pwm (default 25% @mode1)
-uint8_t RTC_ON = 0; //rtc on/off
-uint8_t fan_mode= 1; //save fan mode (default @mode1)
-
-//pir
-GPIO_PinState PIR[2] = {0}; //save state PIR
-
-//RTC
+//RTC time
 RTC_TimeTypeDef NowTime;
 RTC_DateTypeDef NowDate;
 /* USER CODE END PV */
@@ -215,38 +220,27 @@ int main(void)
 	HAL_TIM_Base_Start(&htim1);
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 
+	//initial parameter
+	shareMemory->PWM = 2500; //pwm @ 25%
+	shareMemory->fan_mode = 1; //fan low speed
+	shareMemory->mode_change = 0; //if fan changes mode
+	shareMemory->RTC_ON = 0; //does rtc work?
+	shareMemory->RTC_change = 0; //rtc change
+	shareMemory->finish = 0; //does fan work 1 min?
+	shareMemory->led1 = 0; //led1 status
+	shareMemory->led2 = 1; //led2 status
+	shareMemory->led3 = 1; //led3 status
+
+	//led setup
+	HAL_GPIO_WritePin(led1_GPIO_Port, led1_Pin, shareMemory->led1); //show led1
+	HAL_GPIO_WritePin(led2_GPIO_Port, led2_Pin, shareMemory->led2); //close led2
+	HAL_GPIO_WritePin(led3_GPIO_Port, led3_Pin, shareMemory->led3); //close led3
+
 	//lcd UI
-	memcpy(Framememory,fan,sizeof(fan));
-
-	int i,j,n = 0;
-	//start at pixel index 25956 (red start at index 0 so add offset 25956%3 = 0)
-	//stop at pixel index 37760 (start + length*rgb*( height of pixel number - 1) = 25856+128*3*(32-1) = 37760)
-	//add next array 384 (128*3)
-	for(i = 25956; i <= 37760; i = i+384 )
-	{
-		//lenght*rgb = 32*3 = 96 (0-95)
-		for(j=0;j<96;j++)
-		{
-			Framememory[i+j] = speed1[j+n];
-		}
-		//offset 150
-		n = n +96;
-	}
-
-	int a,b,c = 0;
-	//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-	//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-	//add next array 384 (128*3)
-	for(a = 23100; a <= 39996; a = a+384 )
-	{
-		//lenght*rgb = 45*3 = 135 (0-134)
-		for(b=0;b<135;b++)
-		{
-			Framememory[a+b] = fan_off[b+c];
-		}
-		//offset 135
-		c = c +135;
-	}
+	memcpy(Framememory,fan,sizeof(fan)); //background
+	LCD_speed(shareMemory->fan_mode); //show fan mode
+	LCD_fan(shareMemory->RTC_ON); //show rtc status
+	LCD_timer(0x00); //show timer
 
 
   /* USER CODE END 2 */
@@ -258,238 +252,90 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		PIR[0] = HAL_GPIO_ReadPin(PIR_GPIO_Port, PIR_Pin); //save PIR current state
-
-		//if (HAL_GPIO_ReadPin(PIR_GPIO_Port, PIR_Pin) == GPIO_PIN_SET)
-		if (PIR[0] == GPIO_PIN_SET && PIR[1] == GPIO_PIN_RESET )
+		if (HAL_HSEM_FastTake(1) == HAL_OK) //hsem cm7 is ready
 		{
-			LCD_flush(&ST7735);
-			//rtc work
-			//start clock
-			int a,b,c = 0;
-			//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-			//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-			//add next array 384 (128*3)
-			for(a = 23100; a <= 39996; a = a+384 )
+
+			if (shareMemory->RTC_change ) //rtc status change
 			{
-				//lenght*rgb = 45*3 = 135 (0-134)
-				for(b=0;b<135;b++)
-				{
-					Framememory[a+b] = fan_on[b+c];
-				}
-				//offset 135
-				c = c +135;
+				LCD_flush(&ST7735); //spi transmit dma normal
+				LCD_fan(shareMemory->RTC_ON); //show fan status on
+				shareMemory->RTC_change = 0; //change rtc status (reset)
+
+				//rtc work
+				//start clock
+				RTC_TimeTypeDef sTime = {0};
+				sTime.Hours =0x00; //0x14 (2 pm.)
+				sTime.Minutes =0x00; //0x30 (half hour or 30 min)
+				sTime.Seconds = 0x00; // 0 second
+				HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD);//set rtc
+
 			}
 
-
-			RTC_ON = 1;
-
-			RTC_TimeTypeDef sTime = {0};
-			sTime.Hours =0x00; //0x14 (2 pm.)
-			sTime.Minutes =0x00; //0x30 (half hour or 30 min)
-			sTime.Seconds = 0x00; // 0 second
-			HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD);
-
-			RTC_DateTypeDef sDate ={0};
-			sDate.Date = 0x20;
-			sDate.Month = 0x10;
-			sDate.WeekDay = RTC_WEEKDAY_WEDNESDAY;
-			sDate.Year = 0x21;
-			HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD);
-
-		}
-
-		//if (RTC_ON == 1)
-//		if (PIR[0]==GPIO_PIN_RESET && PIR[1] == GPIO_PIN_SET)
-//		{
-//
-//			//start alarm
-//			RTC_AlarmTypeDef sAlarm = { 0 };
-//			RTC_TimeTypeDef sTime = NowTime;
-//
-//			//next 60 second or 1 minute
-//			sTime.Minutes += 0x01;
-//
-//			//time overflow
-//			if (sTime.Seconds >= 0x60)
-//			{
-//				sTime.Seconds -= 0x60;
-//				sTime.Minutes++;
-//				if (sTime.Minutes >= 0x60)
-//				{
-//					sTime.Minutes -= 0x60;
-//					sTime.Hours++;
-//					if (sTime.Hours >= 0x24)
-//					{
-//						sTime.Hours -= 0x24;
-//					}
-//				}
-//			}
-//
-//			//setting alarm mask
-//			sAlarm.AlarmTime = sTime;
-//			sAlarm.Alarm = RTC_ALARM_A;
-//			sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY;
-//			sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_NONE;
-//			sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-//			sAlarm.AlarmDateWeekDay = 0x1;
-
-//			//pwm work
-//			__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,PWM);
-//
-//			//stop LED (For save energy)
-//			HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
-//
-//			//set alarm
-//			HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD);
-//
-//			//put cpu to stop mode
-////			HAL_SuspendTick();
-////			HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON,
-////			PWR_STOPENTRY_WFI);
-//			//code stop / resume here
-//
-//			//reconfig clock to normal operation
-//			SystemClock_Config();
-//			HAL_ResumeTick();
-//
-//			RTC_ON = 1;
-//
-//			//show lcd mode function
-//
-//
-//		}
-		PIR[1] = PIR[0]; // save PIR new state
-
-		button1[0]= HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin); //save s1 current state
-		button2[0]= HAL_GPIO_ReadPin(S2_GPIO_Port, S2_Pin); //save s2 current state
-		button3[0]= HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin); //save s1 current state
-
-		if(button1[1]==GPIO_PIN_SET && button1[0]==GPIO_PIN_RESET ) // if press s1
-		{
-			LCD_flush(&ST7735);
-			PWM = 2500;
-			//fan_mode = 1;
-			//show mode 1
-			//memcpy(Framememory,owl,sizeof(owl));
-			//show speed
-			int i,j,n = 0;
-			//start at pixel index 25956 (red start at index 0 so add offset 25956%3 = 0)
-			//stop at pixel index 37760 (start + length*rgb*( height of pixel number - 1) = 25856+128*3*(32-1) = 37760)
-			//add next array 384 (128*3)
-			for(i = 25956; i <= 37760; i = i+384 )
+			if (shareMemory->mode_change) //fan mode chande
 			{
-				//lenght*rgb = 32*3 = 96 (0-95)
-				for(j=0;j<96;j++)
-				{
-					Framememory[i+j] = speed1[j+n];
-				}
-				//offset 150
-				n = n +96;
+				LCD_flush(&ST7735); //spi transmit dma normal
+				LCD_speed(shareMemory->fan_mode); //change fan speed
+				shareMemory->mode_change = 0; ////change fan status (reset)
+				HAL_GPIO_WritePin(led1_GPIO_Port, led1_Pin, shareMemory->led1); //show led1
+				HAL_GPIO_WritePin(led2_GPIO_Port, led2_Pin, shareMemory->led2); //show led2
+				HAL_GPIO_WritePin(led3_GPIO_Port, led3_Pin, shareMemory->led3); //show led3
 			}
-		}
 
-		if(button2[1]==GPIO_PIN_SET && button2[0]==GPIO_PIN_RESET ) // if press s2
-		{
-			LCD_flush(&ST7735);
-			PWM = 5000;
-			//fan_mode = 2;
-			//show mode 2
-			//memcpy(Framememory,dog,sizeof(dog));
-			//show speed
-			int i,j,n = 0;
-			//start at pixel index 25956 (red start at index 0 so add offset 25956%3 = 0)
-			//stop at pixel index 37760 (start + length*rgb*( height of pixel number - 1) = 25856+128*3*(32-1) = 37760)
-			//add next array 384 (128*3)
-			for(i = 25956; i <= 37760; i = i+384 )
+			if (shareMemory->RTC_ON == 1) //if rtc work
 			{
-				//lenght*rgb = 32*3 = 96 (0-95)
-				for(j=0;j<96;j++)
-				{
-					Framememory[i+j] = speed2[j+n];
-				}
-				//offset 150
-				n = n +96;
-			}
-		}
+				RTC_TimeTypeDef sTime = NowTime; //save time
 
-		if(button3[1]==GPIO_PIN_SET && button3[0]==GPIO_PIN_RESET ) // if press s3
-		{
-			LCD_flush(&ST7735);
-			PWM = 10000;
-			//fan_mode = 3;
-			//show mode
-			//memcpy(Framememory,man,sizeof(man));
-			//show speed
-			int i,j,n = 0;
-			//start at pixel index 25956 (red start at index 0 so add offset 25956%3 = 0)
-			//stop at pixel index 37760 (start + length*rgb*( height of pixel number - 1) = 25856+128*3*(32-1) = 37760)
-			//add next array 384 (128*3)
-			for(i = 25956; i <= 37760; i = i+384 )
-			{
-				//lenght*rgb = 32*3 = 96 (0-95)
-				for(j=0;j<96;j++)
+				//time over flow
+				if (sTime.Seconds >= 0x60)
 				{
-					Framememory[i+j] = speed3[j+n];
-				}
-				//offset 150
-				n = n +96;
-			}
-		}
-
-		button1[1] = button1[0]; // save S1 new state
-		button2[1] = button2[0]; // save S2 new state
-		button3[1] = button3[0]; // save S3 new state
-
-		if (RTC_ON == 1)
-		{
-			RTC_TimeTypeDef sTime = NowTime;
-			if (sTime.Seconds >= 0x60)
-			{
-				sTime.Seconds -= 0x60;
-				sTime.Minutes++;
-				if (sTime.Minutes >= 0x60)
-				{
-					sTime.Minutes -= 0x60;
-					sTime.Hours++;
-					if (sTime.Hours >= 0x24)
+					sTime.Seconds -= 0x60;
+					sTime.Minutes++;
+					if (sTime.Minutes >= 0x60)
 					{
-						sTime.Hours -= 0x24;
+						sTime.Minutes -= 0x60;
+						sTime.Hours++;
+						if (sTime.Hours >= 0x24)
+						{
+							sTime.Hours -= 0x24;
+						}
 					}
 				}
-			}
-			if (sTime.Minutes < 0x01)
-			{
-				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,PWM);
-	//			HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin, GPIO_PIN_RESET);
-			}
-			else
-			{
-				RTC_ON = 0;
-				__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
-				LCD_flush(&ST7735);
-				int a,b,c = 0;
-//				start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-//				stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-//				add next array 384 (128*3)
-				for(a = 23100; a <= 39996; a = a+384 )
+
+				//if fan does not work for 1 min
+				if (sTime.Minutes < 0x01)
 				{
-					//lenght*rgb = 45*3 = 135 (0-134)
-					for(b=0;b<135;b++)
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, shareMemory->PWM); //drive motor
+
+					//show timer every 15 sec
+					if (sTime.Seconds == 0x00 || sTime.Seconds == 0x15 || sTime.Seconds ==0x30 ||sTime.Seconds == 0x45)
 					{
-						Framememory[a+b] = fan_off[b+c];
+						LCD_flush(&ST7735); //spi transmit dma normal
+						LCD_timer(sTime.Seconds); //show timer
 					}
-					//offset 135
-					c = c +135;
+
 				}
+				//if fan works for 1 min
+				else
+				{
+					shareMemory->RTC_ON = 0; //rtc work done (reset)
+					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0); //stop driving motor
 
+					LCD_flush(&ST7735); //spi transmit dma normal
+					LCD_timer(0x60); //show 60 sec
+					LCD_fan(shareMemory->RTC_ON); //show rtc status
+
+					shareMemory->finish = 1; //work for 1 min is done
+
+				}
 			}
+
+			//read RTC
+			HAL_RTC_GetTime(&hrtc, &NowTime, RTC_FORMAT_BCD);
+			HAL_RTC_GetDate(&hrtc, &NowDate, RTC_FORMAT_BCD);
+
+			//hsem release
+			HAL_HSEM_Release(1, 0);
 		}
-
-		//read RTC
-		HAL_RTC_GetTime(&hrtc, &NowTime, RTC_FORMAT_BCD);
-		HAL_RTC_GetDate(&hrtc, &NowDate, RTC_FORMAT_BCD);
-
 
 		//test lcd
 //		Framememory[20000] = 255;
@@ -958,6 +804,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, led3_Pin|led2_Pin|led1_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : LD1_Pin */
@@ -967,18 +816,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LD1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PIR_Pin */
-  GPIO_InitStruct.Pin = PIR_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(PIR_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pins : LCD_CS_Pin LCD_DC_Pin */
   GPIO_InitStruct.Pin = LCD_CS_Pin|LCD_DC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : led3_Pin led2_Pin led1_Pin */
+  GPIO_InitStruct.Pin = led3_Pin|led2_Pin|led1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LCD_RST_Pin */
   GPIO_InitStruct.Pin = LCD_RST_Pin;
@@ -987,41 +837,29 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(LCD_RST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : S3_Pin */
-  GPIO_InitStruct.Pin = S3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(S3_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : S2_Pin S1_Pin */
-  GPIO_InitStruct.Pin = S2_Pin|S1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
-{
-	RTC_ON = 0;
-	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
-	LCD_flush(&ST7735);
-	int a,b,c = 0;
-	//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-	//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-	//add next array 384 (128*3)
-	for(a = 23100; a <= 39996; a = a+384 )
-	{
-		//lenght*rgb = 45*3 = 135 (0-134)
-		for(b=0;b<135;b++)
-		{
-			Framememory[a+b] = fan_off[b+c];
-		}
-		//offset 135
-		c = c +135;
-	}
-}
+//void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+//{
+//	RTC_ON = 0;
+//	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
+//	LCD_flush(&ST7735);
+//	int a,b,c = 0;
+//	//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
+//	//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
+//	//add next array 384 (128*3)
+//	for(a = 23100; a <= 39996; a = a+384 )
+//	{
+//		//lenght*rgb = 45*3 = 135 (0-134)
+//		for(b=0;b<135;b++)
+//		{
+//			Framememory[a+b] = fan_off[b+c];
+//		}
+//		//offset 135
+//		c = c +135;
+//	}
+//}
 
 /* USER CODE END 4 */
 

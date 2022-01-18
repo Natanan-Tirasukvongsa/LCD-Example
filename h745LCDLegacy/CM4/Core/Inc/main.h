@@ -58,6 +58,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define PIR_Pin GPIO_PIN_13
+#define PIR_GPIO_Port GPIOE
+#define S3_Pin GPIO_PIN_14
+#define S3_GPIO_Port GPIOG
+#define S2_Pin GPIO_PIN_6
+#define S2_GPIO_Port GPIOB
+#define S1_Pin GPIO_PIN_7
+#define S1_GPIO_Port GPIOB
 void   MX_ETH_Init(void);
 /* USER CODE BEGIN Private defines */
 

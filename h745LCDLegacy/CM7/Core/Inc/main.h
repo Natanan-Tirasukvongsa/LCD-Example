@@ -62,8 +62,6 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LD1_Pin GPIO_PIN_0
 #define LD1_GPIO_Port GPIOB
-#define PIR_Pin GPIO_PIN_13
-#define PIR_GPIO_Port GPIOE
 #define STLINK_RX_Pin GPIO_PIN_8
 #define STLINK_RX_GPIO_Port GPIOD
 #define STLINK_TX_Pin GPIO_PIN_9
@@ -72,14 +70,14 @@ void Error_Handler(void);
 #define LCD_CS_GPIO_Port GPIOD
 #define LCD_DC_Pin GPIO_PIN_15
 #define LCD_DC_GPIO_Port GPIOD
+#define led3_Pin GPIO_PIN_10
+#define led3_GPIO_Port GPIOC
+#define led2_Pin GPIO_PIN_11
+#define led2_GPIO_Port GPIOC
+#define led1_Pin GPIO_PIN_12
+#define led1_GPIO_Port GPIOC
 #define LCD_RST_Pin GPIO_PIN_9
 #define LCD_RST_GPIO_Port GPIOG
-#define S3_Pin GPIO_PIN_14
-#define S3_GPIO_Port GPIOG
-#define S2_Pin GPIO_PIN_6
-#define S2_GPIO_Port GPIOB
-#define S1_Pin GPIO_PIN_7
-#define S1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

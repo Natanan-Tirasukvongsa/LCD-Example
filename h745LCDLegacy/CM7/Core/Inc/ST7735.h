@@ -36,11 +36,19 @@ extern uint8_t fan_on[6075];
 extern uint8_t speed1[3072];
 extern uint8_t speed2[3072];
 extern uint8_t speed3[3072];
+extern uint8_t n0[4800];
+extern uint8_t n15[4800];
+extern uint8_t n30[4800];
+extern uint8_t n45[4800];
+extern uint8_t n60[4800];
 
 void LCD_init(LCDHandle *lcd);
 void LCD_flush(LCDHandle *lcd);
 uint8_t* LCDBufferAddr();
 
 void LCD_show(uint8_t RTC_ON, uint8_t fan_mode);
+void LCD_timer(uint8_t timer);
+void LCD_fan(uint8_t RTC_ON);
+void LCD_speed(uint8_t speed);
 
 #endif /* INC_ST7735_H_ */

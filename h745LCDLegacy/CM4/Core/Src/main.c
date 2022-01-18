@@ -73,11 +73,35 @@ ETH_TxPacketConfig TxConfig;
 ETH_HandleTypeDef heth;
 
 /* USER CODE BEGIN PV */
+//share memory
+typedef struct
+{
+	uint32_t PWM;
+	uint8_t fan_mode;
+	uint8_t mode_change;
+	uint8_t RTC_ON;
+	uint8_t RTC_change;
+	uint8_t finish;
+	uint8_t led1;
+	uint8_t led2;
+	uint8_t led3;
+}SharedType;
+
+SharedType *shareMemory = (SharedType*)(0x38000000);
+
+//button status
+GPIO_PinState button1[2] = {0}; //save state button S1
+GPIO_PinState button2[2] = {0}; //save state button S2
+GPIO_PinState button3[2] = {0}; //save state button S3
+
+//pir status
+GPIO_PinState PIR[2] = {0}; //save state PIR
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 static void MX_DMA_Init(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -127,7 +151,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_DMA_Init();
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  //initial parameter
+  shareMemory->PWM = 2500;
+  shareMemory->fan_mode = 1;
+  shareMemory->mode_change = 0;
+  shareMemory->RTC_ON = 0;
+  shareMemory->RTC_change = 0;
+  shareMemory->finish = 0;
+  shareMemory->led1 = 1;
+  shareMemory->led2 = 0;
+  shareMemory->led3 = 0;
 
   /* USER CODE END 2 */
 
@@ -135,6 +170,64 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (HAL_HSEM_FastTake(1) == HAL_OK) //hsem cm4 is ready
+	  {
+		  PIR[0] = HAL_GPIO_ReadPin(PIR_GPIO_Port, PIR_Pin); //save PIR current state
+		  if (PIR[0] == GPIO_PIN_SET && PIR[1] == GPIO_PIN_RESET ) //pir can detect something
+		  {
+			  shareMemory->RTC_change = 1; //rtc status change
+			  shareMemory->RTC_ON = 1; //rtc work
+		  }
+		  PIR[1] = PIR[0]; // save PIR new state
+
+		  button1[0]= HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin); //save s1 current state
+		  button2[0]= HAL_GPIO_ReadPin(S2_GPIO_Port, S2_Pin); //save s2 current state
+		  button3[0]= HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin); //save s1 current state
+
+		  if(button1[1]==GPIO_PIN_SET && button1[0]==GPIO_PIN_RESET ) // if press s1
+		  {
+			  shareMemory->PWM = 2500; //save pwm
+			  shareMemory->fan_mode = 1; //save fan mode
+			  shareMemory->mode_change = 1; //fan mode is changed
+			  shareMemory->led1 = 0; //led1 work
+			  shareMemory->led2 = 1; //led2 close
+			  shareMemory->led3 = 1; //led3 close
+		  }
+
+		  if(button2[1]==GPIO_PIN_SET && button2[0]==GPIO_PIN_RESET ) // if press s2
+		  {
+			  shareMemory->PWM = 5000; //save pwm
+			  shareMemory->fan_mode = 2; //save fan mode
+			  shareMemory->mode_change = 1; //fan mode is changed
+			  shareMemory->led1 = 1; //led1 close
+			  shareMemory->led2 = 0; //led2 work
+			  shareMemory->led3 = 1; //led3 close
+		  }
+
+		  if(button3[1]==GPIO_PIN_SET && button3[0]==GPIO_PIN_RESET ) // if press s3
+		  {
+			  shareMemory->PWM = 10000; //save pwm
+			  shareMemory->fan_mode = 3; //save fan mode
+			  shareMemory->mode_change = 1; //fan mode is changed
+			  shareMemory->led1 = 1; //led1 close
+			  shareMemory->led2 = 1; //led2 close
+			  shareMemory->led3 = 0; //led3 work
+		  }
+
+		  button1[1] = button1[0]; // save S1 new state
+		  button2[1] = button2[0]; // save S2 new state
+		  button3[1] = button3[0]; // save S3 new state
+
+		  if (shareMemory->finish) //finish work (motor run 1 min)
+		  {
+			  //reset PIR input for next detecting quickly
+			  PIR[0] = GPIO_PIN_RESET;
+			  PIR[1] = GPIO_PIN_RESET;
+			  shareMemory->finish = 0; //change finish status (reset)
+		  }
+
+		  HAL_HSEM_Release(1, 0); //hsem release
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -199,6 +292,40 @@ static void MX_DMA_Init(void)
 
   /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin : PIR_Pin */
+  GPIO_InitStruct.Pin = PIR_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(PIR_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : S3_Pin */
+  GPIO_InitStruct.Pin = S3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(S3_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : S2_Pin S1_Pin */
+  GPIO_InitStruct.Pin = S2_Pin|S1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
