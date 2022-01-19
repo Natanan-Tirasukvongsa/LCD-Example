@@ -29,6 +29,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+RTC_TimeTypeDef sTime={0};
+RTC_DateTypeDef sDate ={0};
+RTC_AlarmTypeDef sAlarm = { 0 };
 
 /* USER CODE END PTD */
 
@@ -109,6 +112,7 @@ UARTStucrture UART2 ={ 0 };
 //RTC time
 RTC_TimeTypeDef NowTime;
 RTC_DateTypeDef NowDate;
+uint8_t RTC_start = 1;
 
 /* USER CODE END PV */
 
@@ -259,20 +263,56 @@ int main(void)
     /* USER CODE BEGIN 3 */
 		if (HAL_HSEM_FastTake(1) == HAL_OK) //hsem cm7 is ready
 		{
+			if (RTC_start)
+			{
+				//rtc work
+				//start clock
+				//set up time
+				sTime.Hours =0x00; //0x14 (2 pm.)
+				sTime.Minutes =0x00; //0x30 (half hour or 30 min)
+				sTime.Seconds = 0x00; // 0 second
+				HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD);//set rtc
 
+				sDate.Date = 0x20;
+				sDate.Month = 0x10;
+				sDate.WeekDay = RTC_WEEKDAY_WEDNESDAY;
+				sDate.Year = 0x21;
+
+				HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD);
+				RTC_start = 0;
+			}
 			if (shareMemory->RTC_change ) //rtc status change
 			{
 				LCD_fan(shareMemory->RTC_ON); //show fan status on
 				LCD_flush(&ST7735); //spi transmit dma normal
 				shareMemory->RTC_change = 0; //change rtc status (reset)
 
-				//rtc work
-				//start clock
-				RTC_TimeTypeDef sTime = {0};
-				sTime.Hours =0x00; //0x14 (2 pm.)
-				sTime.Minutes =0x00; //0x30 (half hour or 30 min)
-				sTime.Seconds = 0x00; // 0 second
-				HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD);//set rtc
+				RTC_TimeTypeDef sTime = NowTime; //save time
+
+				sTime.Minutes += 0x01;
+				//time over flow
+				if (sTime.Seconds >= 0x60)
+				{
+					sTime.Seconds -= 0x60;
+					sTime.Minutes++;
+					if (sTime.Minutes >= 0x60)
+					{
+						sTime.Minutes -= 0x60;
+						sTime.Hours++;
+						if (sTime.Hours >= 0x24)
+						{
+							sTime.Hours -= 0x24;
+						}
+					}
+				}
+				//setting alarm mask
+				sAlarm.AlarmTime = sTime;
+				sAlarm.Alarm = RTC_ALARM_A;
+				sAlarm.AlarmMask = RTC_ALARMMASK_DATEWEEKDAY;
+				sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_NONE;
+				sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+				sAlarm.AlarmDateWeekDay = 0x1;
+
 
 			}
 
@@ -290,7 +330,6 @@ int main(void)
 			{
 				RTC_TimeTypeDef sTime = NowTime; //save time
 
-				//time over flow
 				if (sTime.Seconds >= 0x60)
 				{
 					sTime.Seconds -= 0x60;
@@ -307,32 +346,34 @@ int main(void)
 				}
 
 				//if fan does not work for 1 min
-				if (sTime.Minutes < 0x01)
-				{
+//				if (sTime.Minutes < 0x01)
+//				{
+					//set alarm
+					HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD);
 					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, shareMemory->PWM); //drive motor
 
 					//show timer every 15 sec
-					if (sTime.Seconds == 0x00 || sTime.Seconds == 0x15 || sTime.Seconds ==0x30 ||sTime.Seconds == 0x45)
-					{
+//					if (sTime.Seconds == 0x00 || sTime.Seconds == 0x15 || sTime.Seconds ==0x30 ||sTime.Seconds == 0x45)
+//					{
 						LCD_timer(sTime.Seconds); //show timer
 						LCD_flush(&ST7735); //spi transmit dma normal
-					}
-
-				}
+//					}
+//
+//				}
 				//if fan works for 1 min
-				else
-				{
-					shareMemory->RTC_ON = 0; //rtc work done (reset)
-					shareMemory->finish = 1; //work for 1 min is done
-					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0); //stop driving motor
-
-					LCD_timer(0x60); //show 60 sec
-					LCD_fan(shareMemory->RTC_ON); //show rtc status
-					LCD_flush(&ST7735); //spi transmit dma normal
-
-
-
-				}
+//				else
+//				{
+//					shareMemory->RTC_ON = 0; //rtc work done (reset)
+//					shareMemory->finish = 1; //work for 1 min is done
+//					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0); //stop driving motor
+//
+//					LCD_timer(0x60); //show 60 sec
+//					LCD_fan(shareMemory->RTC_ON); //show rtc status
+//					LCD_flush(&ST7735); //spi transmit dma normal
+//
+//
+//
+//				}
 			}
 
 			//read RTC
@@ -855,6 +896,8 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
 	LCD_timer(0x60); //show 60 sec
 	LCD_fan(shareMemory->RTC_ON); //show rtc status
 	LCD_flush(&ST7735); //spi transmit dma normal
+
+	RTC_start = 1;
 
 }
 
