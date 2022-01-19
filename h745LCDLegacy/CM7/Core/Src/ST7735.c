@@ -182,7 +182,7 @@ void LCD_init(LCDHandle *lcd){
 
 	//write parameter of scan order
 	//write parameter 0b01001000
-	//&LCDSTARTUPSeq[4] 0ffset ไป 4 ตำแหน่ง
+	//&LCDSTARTUPSeq[4] offset ไป 4 ตำแหน่ง
 	//1 = 1 parameter
 	HAL_GPIO_WritePin(lcd->DCPort, lcd->DCPin, GPIO_PIN_SET);
 	HAL_SPI_Transmit(lcd->hspi, &LCDSTARTUPSeq[4], 1, 100);

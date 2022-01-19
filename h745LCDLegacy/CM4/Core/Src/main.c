@@ -76,15 +76,15 @@ ETH_HandleTypeDef heth;
 //share memory
 typedef struct
 {
-	uint32_t PWM;
-	uint8_t fan_mode;
-	uint8_t mode_change;
-	uint8_t RTC_ON;
-	uint8_t RTC_change;
-	uint8_t finish;
-	uint8_t led1;
-	uint8_t led2;
-	uint8_t led3;
+	uint32_t PWM; //pulse width modulation
+	uint8_t fan_mode; //fan mode
+	uint8_t mode_change; //fan has changed mode
+	uint8_t RTC_ON; //rtc is working
+	uint8_t RTC_change; //rtc has changed status
+	uint8_t finish; //finish task (motor run 1 min)
+	uint8_t led1; //led1 status
+	uint8_t led2; //led2 status
+	uint8_t led3; //led3 status
 }SharedType;
 
 SharedType *shareMemory = (SharedType*)(0x38000000);
@@ -221,8 +221,8 @@ int main(void)
 		  if (shareMemory->finish) //finish work (motor run 1 min)
 		  {
 			  //reset PIR input for next detecting quickly
-			  PIR[0] = GPIO_PIN_RESET;
-			  PIR[1] = GPIO_PIN_RESET;
+//			  PIR[0] = GPIO_PIN_RESET;
+//			  PIR[1] = GPIO_PIN_RESET;
 			  shareMemory->finish = 0; //change finish status (reset)
 		  }
 

@@ -90,25 +90,26 @@ PCD_HandleTypeDef hpcd_USB_OTG_FS;
 //share information
 typedef struct
 {
-	uint32_t PWM;
-	uint8_t fan_mode;
-	uint8_t mode_change;
-	uint8_t RTC_ON;
-	uint8_t RTC_change;
-	uint8_t finish;
-	uint8_t led1;
-	uint8_t led2;
-	uint8_t led3;
+	uint32_t PWM; //pulse width modulation
+	uint8_t fan_mode; //fan mode
+	uint8_t mode_change; //fan has changed mode
+	uint8_t RTC_ON; //rtc is working
+	uint8_t RTC_change; //rtc has changed status
+	uint8_t finish; //finish task (motor run 1 min)
+	uint8_t led1; //led1 status
+	uint8_t led2; //led2 status
+	uint8_t led3; //led3 status
 }SharedType;
 
-SharedType *shareMemory = (SharedType*)(0x38000000);
+SharedType *shareMemory = (SharedType*)(0x38000000); //share memory address
 
-LCDHandle ST7735 = { 0 };
+LCDHandle ST7735 = { 0 }; //lcd pin
 UARTStucrture UART2 ={ 0 };
 
 //RTC time
 RTC_TimeTypeDef NowTime;
 RTC_DateTypeDef NowDate;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -207,16 +208,18 @@ int main(void)
 	ST7735.RstPin = GPIO_PIN_9;
 	//เริ่ม�?ารเขียน sequence data
 	LCD_init(&ST7735);
-	//flush ข้อมูล dma
-	LCD_flush(&ST7735);
+
 	//รับข้อมูลภาพด้วย uart
-	UART2.huart = &huart3;
-	UART2.RxLen =255;
-	UART2.TxLen =255;
-	UARTInit(&UART2);
-	UARTResetStart(&UART2);
+//	UART2.huart = &huart3;
+//	UART2.RxLen =255;
+//	UART2.TxLen =255;
+//	UARTInit(&UART2);
+//	UARTResetStart(&UART2);
 
 	//start pwm
+	//tim1 @APB2 timer clock 100 MHz
+	//counter period 10000 -> 10 kHz
+	//couter period 10000 = pwm 100%
 	HAL_TIM_Base_Start(&htim1);
 	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 
@@ -241,6 +244,8 @@ int main(void)
 	LCD_speed(shareMemory->fan_mode); //show fan mode
 	LCD_fan(shareMemory->RTC_ON); //show rtc status
 	LCD_timer(0x00); //show timer
+	//flush ข้อมูล dma
+	LCD_flush(&ST7735);
 
 
   /* USER CODE END 2 */
@@ -257,8 +262,8 @@ int main(void)
 
 			if (shareMemory->RTC_change ) //rtc status change
 			{
-				LCD_flush(&ST7735); //spi transmit dma normal
 				LCD_fan(shareMemory->RTC_ON); //show fan status on
+				LCD_flush(&ST7735); //spi transmit dma normal
 				shareMemory->RTC_change = 0; //change rtc status (reset)
 
 				//rtc work
@@ -273,8 +278,8 @@ int main(void)
 
 			if (shareMemory->mode_change) //fan mode chande
 			{
-				LCD_flush(&ST7735); //spi transmit dma normal
 				LCD_speed(shareMemory->fan_mode); //change fan speed
+				LCD_flush(&ST7735); //spi transmit dma normal
 				shareMemory->mode_change = 0; ////change fan status (reset)
 				HAL_GPIO_WritePin(led1_GPIO_Port, led1_Pin, shareMemory->led1); //show led1
 				HAL_GPIO_WritePin(led2_GPIO_Port, led2_Pin, shareMemory->led2); //show led2
@@ -309,8 +314,8 @@ int main(void)
 					//show timer every 15 sec
 					if (sTime.Seconds == 0x00 || sTime.Seconds == 0x15 || sTime.Seconds ==0x30 ||sTime.Seconds == 0x45)
 					{
-						LCD_flush(&ST7735); //spi transmit dma normal
 						LCD_timer(sTime.Seconds); //show timer
+						LCD_flush(&ST7735); //spi transmit dma normal
 					}
 
 				}
@@ -318,13 +323,14 @@ int main(void)
 				else
 				{
 					shareMemory->RTC_ON = 0; //rtc work done (reset)
+					shareMemory->finish = 1; //work for 1 min is done
 					__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0); //stop driving motor
 
-					LCD_flush(&ST7735); //spi transmit dma normal
 					LCD_timer(0x60); //show 60 sec
 					LCD_fan(shareMemory->RTC_ON); //show rtc status
+					LCD_flush(&ST7735); //spi transmit dma normal
 
-					shareMemory->finish = 1; //work for 1 min is done
+
 
 				}
 			}
@@ -384,7 +390,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 1;
   RCC_OscInitStruct.PLL.PLLN = 25;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 6;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
@@ -400,13 +406,13 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
@@ -840,26 +846,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-//void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
-//{
-//	RTC_ON = 0;
-//	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0);
-//	LCD_flush(&ST7735);
-//	int a,b,c = 0;
-//	//start at pixel index 23100 (red start at index 0 so add offset 23100%3 = 0)
-//	//stop at pixel index 39996 (start + length*rgb*( height of pixel number - 1) = 23100+128*3*(45-1) = 39996)
-//	//add next array 384 (128*3)
-//	for(a = 23100; a <= 39996; a = a+384 )
-//	{
-//		//lenght*rgb = 45*3 = 135 (0-134)
-//		for(b=0;b<135;b++)
-//		{
-//			Framememory[a+b] = fan_off[b+c];
-//		}
-//		//offset 135
-//		c = c +135;
-//	}
-//}
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+	shareMemory->RTC_ON = 0; //rtc work done (reset)
+	shareMemory->finish = 1; //work for 1 min is done
+	__HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1,0); //stop driving motor
+
+	LCD_timer(0x60); //show 60 sec
+	LCD_fan(shareMemory->RTC_ON); //show rtc status
+	LCD_flush(&ST7735); //spi transmit dma normal
+
+}
 
 /* USER CODE END 4 */
 
